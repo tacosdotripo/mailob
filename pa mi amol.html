@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#f8e8e9">
+<title>Un pequeño lugar para ti ♡</title>
+
+<style>
+:root {
+  --ink:#604b50;
+  --muted:#987c81;
+  --rose:#d98e9c;
+  --plum:#805d68;
+}
+
+* { box-sizing:border-box; }
+
+html { scroll-behavior:smooth; }
+
+  body {
+  margin:0;
+  min-height:100vh;
+  color:var(--ink);
+  font-family:Georgia,"Times New Roman",serif;
+
+  background-color:#f8e8e9;
+  background-image:
+    linear-gradient(
+      rgba(255,250,247,0.48),
+      rgba(249,233,236,0.58)
+    ),
+    url("./mailon.png");
+
+  background-size:cover;
+  background-position:center center;
+  background-repeat:no-repeat;
+  background-attachment:fixed;
+}
+
+@media (max-width:700px) {
+  body {
+    background-attachment:scroll;
+  }
+
+}
+
+button {
+  font:inherit;
+  cursor:pointer;
+  -webkit-tap-highlight-color:transparent;
+}
+
+.wrap {
+  width:min(100% - 36px, 900px);
+  margin:0 auto;
+  padding:24px 0 60px;
+}
+
+.hero {
+  min-height:90vh;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  position:relative;
+  padding:36px 10px;
+}
+
+.eyebrow,.small {
+  font:11px Arial,sans-serif;
+  letter-spacing:2.5px;
+  text-transform:uppercase;
+  color:var(--muted);
+}
+
+h1 {
+  font-size:clamp(42px,8vw,76px);
+  font-weight:400;
+  line-height:1.04;
+  color:var(--plum);
+  margin:20px 0 14px;
+}
+
+.subtitle {
+  font-size:clamp(16px,2.3vw,19px);
+  line-height:1.75;
+  max-width:520px;
+  color:#8e7479;
+  margin:0 auto 14px;
+}
+
+.heart {
+  font-size:35px;
+  color:var(--rose);
+  margin-top:18px;
+}
+
+button {
+  border:0;
+  border-radius:999px;
+  padding:14px 23px;
+  margin-top:18px;
+  transition:transform .2s, box-shadow .2s;
+}
+
+button:hover {
+  transform:translateY(-2px);
+}
+
+button:focus-visible {
+  outline:3px solid #c98b98;
+  outline-offset:4px;
+}
+
+.primary {
+  background:#bd7d8b;
+  color:white;
+  box-shadow:0 8px 24px #bd7d8b35;
+}
+
+.soft {
+  background:#fff7f5;
+  color:#8c626d;
+  border:1px solid #efd6da;
+}
+
+/* CONTADOR */
+
+.counter {
+  width:min(100%,620px);
+  background:#fffaf8;
+  border:1px solid #f0dcdf;
+  border-radius:24px;
+  padding:22px 20px;
+  margin:18px 0 4px;
+  box-shadow:0 10px 28px #a66f7910;
+}
+
+.time-counter {
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:10px;
+  margin:20px 0;
+}
+
+.time-counter div {
+  min-width:0;
+  background:#fbefef;
+  border-radius:15px;
+  padding:14px 4px;
+}
+
+.time-counter strong {
+  display:block;
+  color:#a66e7b;
+  font-size:clamp(23px,5.5vw,42px);
+  font-weight:400;
+  font-variant-numeric:tabular-nums;
+  line-height:1.2;
+}
+
+.time-counter span {
+  display:block;
+  font:10px Arial,sans-serif;
+  color:#987c81;
+  margin-top:7px;
+  letter-spacing:1px;
+}
+
+.counter-note {
+  color:#987c81;
+  margin:8px 0 14px;
+  font-size:15px;
+}
+
+/* MÚSICA */
+
+.music-player {
+  width:min(100%,620px);
+  margin:18px auto 28px;
+  padding:24px 20px;
+  text-align:center;
+  background:#fff7f5;
+  border:1px solid #efd6da;
+  border-radius:24px;
+  box-shadow:0 10px 28px #a66f7910;
+}
+
+.music-heart {
+  color:var(--rose);
+  font-size:35px;
+}
+
+.music-player p {
+  color:var(--plum);
+  font-size:21px;
+  margin:8px 0;
+}
+
+.music-player span {
+  color:var(--muted);
+  font-size:14px;
+  line-height:1.6;
+}
+
+/* SECCIONES */
+
+section {
+  background:#fffaf8;
+  border:1px solid #f0dcdf;
+  border-radius:24px;
+  padding:clamp(22px,4vw,34px);
+  margin:22px 0;
+  box-shadow:0 12px 35px #a66f7910;
+  scroll-margin-top:18px;
+}
+
+h2 {
+  font-weight:400;
+  font-size:clamp(26px,4vw,32px);
+  color:var(--plum);
+  margin:12px 0;
+}
+
+p { line-height:1.8; }
+
+.grid {
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:12px;
+  margin-top:18px;
+}
+
+.reason {
+  padding:19px;
+  border-radius:18px;
+  background:#fbefef;
+  min-height:112px;
+  line-height:1.6;
+}
+
+.reason b {
+  display:block;
+  font-weight:400;
+  color:#a66e7b;
+  font-size:22px;
+  margin-bottom:8px;
+}
+
+.letter {
+  white-space:pre-line;
+  font-size:clamp(16px,2.2vw,18px);
+  line-height:1.95;
+}
+
+.hidden {
+  display:none !important;
+}
+
+footer {
+  text-align:center;
+  color:#a7838b;
+  padding:30px 10px;
+  line-height:1.7;
+}
+
+/* CORAZONES FLOTANTES */
+
+.floating-heart {
+  position:fixed;
+  bottom:-35px;
+  z-index:9999;
+  pointer-events:none;
+  color:#d98e9c;
+  text-shadow:0 2px 8px #d98e9c35;
+  animation:floatUp 4.5s ease-in forwards;
+}
+
+@keyframes floatUp {
+  0% {
+    transform:translateY(0) rotate(0deg) scale(.8);
+    opacity:0;
+  }
+  15% { opacity:.9; }
+  100% {
+    transform:translateY(-110vh) rotate(35deg) scale(1.2);
+    opacity:0;
+  }
+}
+
+/* ADAPTACIÓN A CELULARES */
+
+@media (max-width:600px) {
+  .wrap {
+    width:min(100% - 24px,520px);
+    padding-top:12px;
+  }
+
+  .hero {
+    min-height:unset;
+    padding:55px 4px 35px;
+  }
+
+  h1 {
+    font-size:clamp(40px,12vw,58px);
+  }
+
+  .subtitle {
+    max-width:390px;
+  }
+
+  .counter {
+    padding:19px 10px;
+    border-radius:20px;
+  }
+
+  .time-counter {
+    gap:5px;
+  }
+
+  .time-counter div {
+    padding:12px 2px;
+    border-radius:12px;
+  }
+
+  .time-counter strong {
+    font-size:clamp(21px,7vw,32px);
+  }
+
+  .time-counter span {
+    letter-spacing:.5px;
+    font-size:8px;
+  }
+
+  .music-player {
+    padding:21px 15px;
+  }
+
+  section {
+    margin:16px 0;
+    border-radius:20px;
+  }
+
+  .grid {
+    grid-template-columns:1fr;
+  }
+
+  button {
+    max-width:100%;
+    padding:14px 19px;
+  }
+}
+
+@media (prefers-reduced-motion:reduce) {
+  html { scroll-behavior:auto; }
+  *,*::before,*::after {
+    animation-duration:.01ms !important;
+    transition-duration:.01ms !important;
+  }
+}
+/* Mejorar la lectura del texto */
+body {
+  color: #49363b;
+}
+
+/* Tarjetas más claras para que el texto destaque */
+.counter,
+.music-player,
+section {
+  background: rgba(255, 250, 248, 0.94);
+  backdrop-filter: blur(5px);
+}
+
+/* Recuadros de razones */
+.reason {
+  background: rgba(255, 239, 240, 0.94);
+}
+
+/* Títulos y textos */
+h1, h2, h3, p, span, strong, small {
+  color: #49363b;
+}
+
+/* Textos secundarios */
+.subtitle,
+.counter-label {
+  color: #765b62;
+}
+</style>
+</head>
+
+<body>
+<div class="wrap">
+
+<header class="hero">
+
+  <div class="eyebrow">Hecho con mucho amor, para ti</div>
+
+  <div class="heart">♡</div>
+
+  <h1>Un pequeño<br>lugar para ti</h1>
+
+  <p class="subtitle">
+  porque te mereces todo el amor 
+  de este mundo mi vida, te amo mucho
+  </p>
+
+  <div class="counter">
+
+    <div class="small">
+      Nuestra historia comenzó hace
+    </div>
+
+    <div class="time-counter">
+
+      <div>
+        <strong id="days">0</strong>
+        <span>DÍAS</span>
+      </div>
+
+      <div>
+        <strong id="hours">00</strong>
+        <span>HORAS</span>
+      </div>
+
+      <div>
+        <strong id="minutes">00</strong>
+        <span>MINUTOS</span>
+      </div>
+
+      <div>
+        <strong id="seconds">00</strong>
+        <span>SEGUNDOS</span>
+      </div>
+
+    </div>
+
+    <p class="counter-note">
+      Y cada segundo te amo más, mi vida ♡
+    </p>
+
+    <div class="small">
+      20 · 06 · 2026
+    </div>
+
+  </div>
+
+  <button class="primary"
+    onclick="document.getElementById('para-ti').scrollIntoView({behavior:'smooth'})">
+    Hay algo que quiero decirte
+  </button>
+
+</header>
+
+<!-- REPRODUCTOR DE MÚSICA -->
+
+<div class="music-player">
+
+  <div class="music-heart">♫</div>
+
+  <p>Una canción para mi niña</p>
+
+  <span>
+   todas las canciones me recuerdan a ti ♡
+  </span>
+
+  <audio id="ourSong" loop preload="none">
+    <source src="1.mp3" type="audio/mpeg">
+    Tu navegador no puede reproducir este audio.
+  </audio>
+
+  <button class="primary"
+    onclick="toggleMusic()"
+    id="musicButton">
+    ♡ Reproducir nuestra canción
+  </button>
+
+</div>
+
+<!-- PRIMER MENSAJE -->
+
+<section id="para-ti">
+
+  <div class="small">Antes que nada</div>
+
+  <h2>Quiero que sepas algo</h2>
+
+  <p>
+    No hice esto porque sea una fecha especial.
+    Lo hice porque no necesito esperar a un día especial
+    para recordarte lo mucho que significas para mí.
+  </p>
+
+  <p>
+    Ojalá, mientras recorres este pequeño rincón,
+    puedas sentir aunque sea un poquito de todo el cariño que te tengo mi vida
+  </p>
+
+</section>
+
+<!-- RAZONES -->
+
+<section>
+
+  <div class="small">Unas cuantas razones</div>
+
+  <h2>Me encantas por...</h2>
+
+  <p>
+    Podría escribir muchísimas, pero quiero empezar con estas:
+  </p>
+
+  <div class="grid">
+
+    <div class="reason">
+      <b>01 ♡</b>
+      La manera en que haces que mis días sean más bonitos.
+    </div>
+
+    <div class="reason">
+      <b>02 ♡</b>
+      Tu forma de ser, incluso en esos pequeños detalles que quizá no notas.
+    </div>
+
+    <div class="reason">
+      <b>03 ♡</b>
+      La tranquilidad y felicidad que siento cuando estoy contigo.
+    </div>
+
+    <div class="reason">
+      <b>04 ♡</b>
+      Porque puedo encontrar mil motivos para sonreír cuando pienso en ti.
+    </div>
+
+    <div class="reason">
+      <b>05 ♡</b>
+      Porque me gusta escucharte, conocerte y descubrir cada parte de ti.
+    </div>
+
+    <div class="reason">
+      <b>06 ♡</b>
+      Porque eres tú. Y eso, para mí, ya es muchísimo.
+    </div>
+
+  </div>
+
+</section>
+
+<!-- CARTA -->
+
+<section>
+
+  <div class="small">Un mensajito guardado para ti</div>
+
+  <h2>Abre tu cartita</h2>
+
+  <p>
+    Hay palabras que merecen un espacio tranquilo.
+    Esta es una de ellas.
+  </p>
+
+  <button class="soft"
+    id="openLetter"
+    onclick="toggleLetter()">
+    Abrir mi carta ♡
+  </button>
+
+  <div id="letter" class="hidden">
+
+    <p class="letter">Mi niña, mi solecito, mi cielito:
+
+Quiero que nunca dudes de lo importante que eres para mí.
+Me encanta tenerte en mi vida, compartir mis días contigo
+y encontrar nuevas razones para quererte.
+
+No prometo que todos los días serán perfectos,
+pero sí quiero seguir eligiéndote, cuidando lo nuestro
+y aprendiendo a hacerte sentir amada.
+
+Quiero estar para tus días buenos y también para esos
+en los que todo pesa un poquito más.
+
+Gracias por ser tú, por tus ocurrencias, tus sonrisas,
+tus abrazos y por cada momento que hemos ido construyendo.
+
+Si pudiera pedir algo, sería que nunca te falten motivos
+para sentirte querida, valorada y acompañada.
+
+Te quiero muchísimo, mi vida.
+Más de lo que a veces sé explicar. ♡</p>
+
+  </div>
+
+</section>
+
+<!-- MENSAJE FINAL -->
+
+<section>
+
+  <div class="small">Y para terminar...</div>
+
+  <h2>Un último recordatorio</h2>
+
+  <p>
+    Si algún día tienes uno de esos días difíciles,
+    vuelve aquí y recuerda que hay alguien
+    que está muy feliz de coincidir contigo.
+  </p>
+
+  <button class="primary" onclick="showFinal()">
+    Toca aquí cuando quieras una dosis de amor
+  </button>
+
+  <p id="final" class="hidden"
+    style="font-size:23px;text-align:center;color:#a66e7b">
+    Mi vida, eres mi persona favorita.
+    Qué bonito es tenerte conmigo. ♡
+  </p>
+
+</section>
+
+<footer>
+  Para mi niña, mi solecito y mi cielito.<br>
+  Con todo mi amor. ♡
+</footer>
+
+</div>
+
+<script>
+
+// CONTADOR DESDE EL 20 DE JUNIO DE 2026 A LAS 3 PM
+
+function updateLoveCounter() {
+
+  const start = new Date(2026, 5, 20, 15, 0, 0);
+  const now = new Date();
+
+  const difference = Math.max(
+    0,
+    now.getTime() - start.getTime()
+  );
+
+  const totalSeconds = Math.floor(difference / 1000);
+
+  const days = Math.floor(totalSeconds / 86400);
+
+  const hours = Math.floor(
+    (totalSeconds % 86400) / 3600
+  );
+
+  const minutes = Math.floor(
+    (totalSeconds % 3600) / 60
+  );
+
+  const seconds = totalSeconds % 60;
+
+  document.getElementById("days").textContent = days;
+
+  document.getElementById("hours").textContent =
+    String(hours).padStart(2, "0");
+
+  document.getElementById("minutes").textContent =
+    String(minutes).padStart(2, "0");
+
+  document.getElementById("seconds").textContent =
+    String(seconds).padStart(2, "0");
+
+}
+
+updateLoveCounter();
+
+setInterval(updateLoveCounter, 1000);
+
+
+// ABRIR Y CERRAR CARTA
+
+function toggleLetter() {
+
+  const letter = document.getElementById("letter");
+
+  const button = document.getElementById("openLetter");
+
+  letter.classList.toggle("hidden");
+
+  button.textContent = letter.classList.contains("hidden")
+    ? "Abrir mi carta ♡"
+    : "Cerrar mi carta";
+
+}
+
+
+// MENSAJE FINAL
+
+function showFinal() {
+
+  const final = document.getElementById("final");
+
+  final.classList.remove("hidden");
+
+  final.scrollIntoView({
+    behavior:"smooth",
+    block:"center"
+  });
+
+}
+
+
+// CORAZONES FLOTANTES
+
+let heartInterval = null;
+
+function createHeart() {
+
+  const heart = document.createElement("span");
+
+  heart.className = "floating-heart";
+
+  heart.textContent = ["♡", "♥", "ღ"][
+    Math.floor(Math.random() * 3)
+  ];
+
+  heart.style.left = Math.random() * 100 + "vw";
+
+  heart.style.fontSize =
+    (15 + Math.random() * 20) + "px";
+
+  document.body.appendChild(heart);
+
+  setTimeout(() => heart.remove(), 4600);
+
+}
+
+function startHeartRain() {
+
+  if (heartInterval) return;
+
+  createHeart();
+
+  heartInterval = setInterval(createHeart, 700);
+
+}
+
+function stopHeartRain() {
+
+  clearInterval(heartInterval);
+
+  heartInterval = null;
+
+}
+
+
+// MÚSICA Y BOTÓN DE REPRODUCCIÓN
+
+async function toggleMusic() {
+
+  const audio = document.getElementById("ourSong");
+
+  const button = document.getElementById("musicButton");
+
+  if (audio.paused) {
+
+    try {
+
+      await audio.play();
+
+      button.textContent = "♫ Pausar nuestra canción";
+
+      startHeartRain();
+
+    } catch (error) {
+
+      button.textContent =
+        "No se pudo reproducir; revisa 1.mp3 ♡";
+
+      stopHeartRain();
+
+    }
+
+  } else {
+
+    audio.pause();
+
+    button.textContent =
+      "♡ Reproducir nuestra canción";
+
+    stopHeartRain();
+
+  }
+
+}
+
+document.getElementById("ourSong").addEventListener("ended", () => {
+
+  document.getElementById("musicButton").textContent =
+    "♡ Reproducir nuestra canción";
+
+  stopHeartRain();
+
+});
+
+</script>
+
+</body>
+</html>
+
